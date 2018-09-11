@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/text_input_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ir.oxima.githubtrending.other.components.EditTextCell
+            android:id="@+id/edt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/_11sdp"
+            android:textColor="@color/grey_normal" />
+
+    </android.support.design.widget.TextInputLayout>
+
+
+    <ir.oxima.githubtrending.other.components.TextViewCell
+        android:id="@+id/txt_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/grey_light"
+        android:visibility="gone"
+        android:textSize="@dimen/_11sdp"/>
+
+    <ir.oxima.githubtrending.other.components.TextViewCell
+        android:id="@+id/txt_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/material_red500"
+        android:visibility="invisible"
+        android:textSize="@dimen/_9sdp"/>
+
+</LinearLayout>

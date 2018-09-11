@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ir.oxima.githubtrending.other.components.StatefulLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/state_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rcl_trends"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </android.support.v7.widget.RecyclerView>
+
+</ir.oxima.githubtrending.other.components.StatefulLayout>

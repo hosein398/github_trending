@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <!-- BottomNavigationBar -->
+    <dimen name="bottom_bar_item_top_padding">@dimen/_4sdp</dimen>
+    <dimen name="bottom_bar_item_bottom_padding">@dimen/_6sdp</dimen>
+    <dimen name="bottom_bar_item_side_padding">@dimen/_8sdp</dimen>
+    <dimen name="bottom_bar_icon_size">@dimen/_16sdp</dimen>
+    <dimen name="bottom_bar_icon_top_margin_inactive">@dimen/_2sdp</dimen>
+    <dimen name="bottom_bar_icon_top_margin_active">0dp</dimen>
+    <dimen name="bottom_bar_title_top_margin">@dimen/_3sdp</dimen>
+    <dimen name="bottom_bar_title_inactive_font_size">@dimen/_9sdp</dimen>
+    <dimen name="bottom_bar_elevation">1dp</dimen>
+    <dimen name="bottom_bar_min_height">@dimen/_35sdp</dimen>
+
+</resources>

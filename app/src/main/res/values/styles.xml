@@ -1,0 +1,48 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="BaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowActionBarOverlay">false</item>
+        <item name="toolbarStyle">@style/Widget.Toolbar</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="dialogTheme">@style/AppTheme.Dialog</item>
+        <item name="alertDialogTheme">@style/AppTheme.Dialog.Alert</item>
+
+    </style>
+
+    <!-- Default App Theme -->
+    <style name="AppTheme" parent="BaseTheme">
+        <!-- API specific attributes 14+ -->
+
+    </style>
+
+    <style name="Widget.Toolbar" parent="@style/Widget.AppCompat.Toolbar">
+        <item name="contentInsetStart">0dp</item>
+    </style>
+
+    <!-- POPUP -->
+
+    <style name="PopupMenu" parent="Widget.AppCompat.PopupMenu">
+        <item name="android:textColor">@color/grey_normal</item>
+        <item name="android:popupBackground">@drawable/popup_fixed_alert</item>
+    </style>
+
+    <!-- Default Dialog Theme -->
+    <style name="AppTheme.Dialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:textSize">@dimen/_15sdp</item>
+    </style>
+
+    <!-- Default Alert Dialog Theme -->
+    <style name="AppTheme.Dialog.Alert" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:textSize">@dimen/_15sdp</item>
+    </style>
+
+</resources>

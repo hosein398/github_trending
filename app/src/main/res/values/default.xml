@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Dimens Default -->
+    <dimen name="toolbar_height">@dimen/_42sdp</dimen>
+    <dimen name="bottom_navigation_height">@dimen/_42sdp</dimen>
+    <dimen name="button_height">@dimen/_44sdp</dimen>
+    <dimen name="shadow_extra_height">@dimen/_6sdp</dimen>
+    <dimen name="shadow_normal_height">@dimen/_2sdp</dimen>
+
+    <!-- Color Default -->
+    <color name="background">@color/md_grey100</color>
+    <color name="grey_normal">@color/md_grey600</color>
+    <color name="grey_dark">@color/md_grey800</color>
+    <color name="grey_light">@color/md_grey400</color>
+
+</resources>
