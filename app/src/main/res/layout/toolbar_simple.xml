@@ -124,6 +124,43 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/search_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/md_white"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:id="@+id/img_back_search"
+                    android:layout_width="@dimen/toolbar_height"
+                    android:layout_height="match_parent"
+                    android:background="?attr/selectableItemBackground"
+                    app:srcCompat="@drawable/ic_arrow_back_black_24dp"
+                    android:padding="@dimen/_11sdp"
+                    android:tint="@color/grey_normal"/>
+
+                <ir.oxima.githubtrending.other.components.EditTextCell
+                    android:id="@+id/edt_search"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:background="@color/md_white"
+                    android:hint="@string/search"
+                    android:textSize="@dimen/_12sdp"
+                    android:textColor="@color/grey_dark"/>
+
+                <ImageView
+                    android:id="@+id/img_clear"
+                    android:layout_width="@dimen/toolbar_height"
+                    android:layout_height="match_parent"
+                    android:background="?attr/selectableItemBackground"
+                    app:srcCompat="@drawable/ic_close_black_24dp"
+                    android:padding="@dimen/_11sdp"
+                    android:tint="@color/grey_normal"/>
+
+            </LinearLayout>
         </FrameLayout>
 
 </android.support.v7.widget.Toolbar>

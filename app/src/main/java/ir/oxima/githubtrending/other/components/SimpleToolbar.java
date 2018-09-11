@@ -3,15 +3,19 @@ package ir.oxima.githubtrending.other.components;
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import ir.oxima.githubtrending.R;
+import ir.oxima.githubtrending.other.utilities.ViewAnimUtils;
 
 
 /**
@@ -27,10 +31,16 @@ public class SimpleToolbar extends Toolbar implements View.OnClickListener {
     private ImageView icon3;
     private ImageView icon2;
     private ImageView icon1;
+    private ViewGroup search_view;
+    private EditText edt_search;
+    private ImageView img_back_search;
+    private ImageView img_clear;
     private TextView txt_title;
     private TextView txt_sub_title;
     private LinearLayout container_toolbar;
     private OnClickIconListener mOnClickIconListener;
+    private SearchViewListener searchViewListener;
+    private OnQueryTextListener onQueryTextListener;
 
 
     public interface OnClickIconListener {
@@ -38,8 +48,7 @@ public class SimpleToolbar extends Toolbar implements View.OnClickListener {
     }
 
     public interface OnQueryTextListener {
-        boolean onQueryTextSubmit(String query);
-        boolean onQueryTextChange(String newText);
+        void onQueryTextChange(String newText);
     }
 
     public interface SearchViewListener {
@@ -75,6 +84,10 @@ public class SimpleToolbar extends Toolbar implements View.OnClickListener {
         tool_bar = findViewById(R.id.tool_bar);
         container_toolbar = findViewById(R.id.container_toolbar);
         img_avatar = findViewById(R.id.tool_bar_img_avatar);
+        search_view = findViewById(R.id.search_view);
+        edt_search = findViewById(R.id.edt_search);
+        img_back_search = findViewById(R.id.img_back_search);
+        img_clear = findViewById(R.id.img_clear);
         icon_back = findViewById(R.id.icon_back);
         icon1 = findViewById(R.id.icon1);
         icon2 = findViewById(R.id.icon2);
@@ -85,10 +98,32 @@ public class SimpleToolbar extends Toolbar implements View.OnClickListener {
         setDefault();
 
 
+        img_back_search.setOnClickListener(this);
+        img_clear.setOnClickListener(this);
         icon_back.setOnClickListener(this);
         icon1.setOnClickListener(this);
         icon2.setOnClickListener(this);
         icon3.setOnClickListener(this);
+
+        edt_search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (onQueryTextListener != null){
+                    onQueryTextListener.onQueryTextChange(s.toString());
+                    return;
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
 
     }
 
@@ -99,10 +134,21 @@ public class SimpleToolbar extends Toolbar implements View.OnClickListener {
         setIcon2(null);
         setIcon3(null);
         setAvatar(null);
+        search_view.setVisibility(GONE);
     }
 
     @Override
     public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.img_back_search:
+                closeSearchView();
+                return;
+
+            case R.id.img_clear:
+                edt_search.setText("");
+                return;
+        }
+
         if (mOnClickIconListener != null) {
             mOnClickIconListener.onClickIcon(view);
             return;
@@ -113,6 +159,13 @@ public class SimpleToolbar extends Toolbar implements View.OnClickListener {
         this.mOnClickIconListener = onClickIconListener;
     }
 
+    public void setSearchViewListener(SearchViewListener searchViewListener) {
+        this.searchViewListener = searchViewListener;
+    }
+
+    public void setOnQueryTextListener(OnQueryTextListener onQueryTextListener) {
+        this.onQueryTextListener = onQueryTextListener;
+    }
 
     public void setTitle(CharSequence title) {
         if (title == null) {
@@ -196,4 +249,23 @@ public class SimpleToolbar extends Toolbar implements View.OnClickListener {
         img_avatar.setImageResource(avatar);
     }
 
+    public boolean isOpenSearchView(){
+        return search_view.getVisibility() == VISIBLE;
+    }
+
+    public void openSearchView(){
+        ViewAnimUtils.visibleView(getContext(),search_view,R.anim.fade_in);
+        if (searchViewListener != null){
+            searchViewListener.onSearchViewShown();
+            return;
+        }
+    }
+
+    public void closeSearchView(){
+        ViewAnimUtils.goneView(getContext(),search_view,R.anim.fade_out);
+        if (searchViewListener != null){
+            searchViewListener.onSearchViewClosed();
+            return;
+        }
+    }
 }

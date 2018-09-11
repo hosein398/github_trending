@@ -7,9 +7,6 @@ import android.support.v4.app.FragmentManager
 class NavigationManager {
 
     interface NavigationListener {
-        /**
-         * Callback on backstack changed.
-         */
         fun onBackstackChanged()
     }
 
