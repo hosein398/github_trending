@@ -9,14 +9,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import ir.oxima.githubtrendin.contracts.HomeContract
+import ir.oxima.githubtrending.NavigationManager
 import ir.oxima.githubtrending.Presenters.HomePresenter
 import ir.oxima.githubtrending.R
+import ir.oxima.githubtrending.models.Trend
 import ir.oxima.githubtrending.other.components.StatefulLayout
 import ir.oxima.githubtrending.other.components.infinitescrollprovider.InfiniteScrollProvider
 import ir.oxima.githubtrending.other.components.infinitescrollprovider.OnLoadMoreListener
 import ir.oxima.githubtrending.views.adapters.TrendAdapter
 
 class HomeFragment : BaseFragment(), HomeContract.View {
+
 
 
     private var mRootView: View? = null
@@ -111,6 +114,9 @@ class HomeFragment : BaseFragment(), HomeContract.View {
         })
     }
 
+    override fun onClickTrend(trend: Trend) {
+        NavigationManager.getInstance().open(WebViewFragment.instance(trend.getHtmlUrl()))
+    }
 
     override fun onConnectivityChange(isConnectedOrConnecting: Boolean) {
         super.onConnectivityChange(isConnectedOrConnecting)

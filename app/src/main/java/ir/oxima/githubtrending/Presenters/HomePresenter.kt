@@ -114,6 +114,10 @@ class HomePresenter : HomeContract.Presenter {
         Glide.with(mView.getAppContext())
                 .load(trend.getOwner()!!.getAvatarUrl())
                 .into(holder.img_avatar)
+
+        holder.root.setOnClickListener{
+            mView.onClickTrend(trend)
+        }
     }
 
 }

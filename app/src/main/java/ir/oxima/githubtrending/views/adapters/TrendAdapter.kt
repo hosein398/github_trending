@@ -36,8 +36,10 @@ class TrendAdapter : RecyclerView.Adapter<TrendAdapter.Holder> {
         var txt_description: TextView
         var txt_watchers_count: TextView
         var img_avatar: ImageView
+        var root: ViewGroup
 
         init {
+            this.root = view.findViewById(R.id.root)
             this.txt_full_name = view.findViewById(R.id.txt_full_name)
             this.txt_description = view.findViewById(R.id.txt_description)
             this.txt_watchers_count = view.findViewById(R.id.txt_watchers_count)

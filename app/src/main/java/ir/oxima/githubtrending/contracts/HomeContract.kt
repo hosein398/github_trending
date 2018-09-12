@@ -20,6 +20,7 @@ interface HomeContract {
         fun notifyItemRemoved(layoutPosition: Int)
         fun notifyItemRangeChanged(positionStart: Int, itemCount: Int)
         fun showTrends()
+        fun onClickTrend(trend: Trend)
     }
 
     interface Presenter{
