@@ -143,7 +143,7 @@ open class BaseActivity : AppCompatActivity(),
         txt_sub_message.setGravity(Gravity.CENTER)
         txt_sub_message.setText(msg)
         txt_sub_message.setBackgroundColor(Theme.getColor(this, R.color.material_white))
-        txt_sub_message.setPadding(AndroidUtilities.dp(10f), AndroidUtilities.dp(10f), AndroidUtilities.dp(10f), AndroidUtilities.dp(10f))
+        txt_sub_message.setPadding(AndroidUtilities.dp(10f), AndroidUtilities.dp(20f), AndroidUtilities.dp(10f), AndroidUtilities.dp(20f))
         linearLayout.addView(txt_sub_message, LayoutHelper.createLinear(LayoutHelper.MATCH_PARENT, LayoutHelper.WRAP_CONTENT, Gravity.CENTER))
 
         mProgressDialog!!.setCustomView(linearLayout, LayoutHelper.createLinear(LayoutHelper.MATCH_PARENT, LayoutHelper.WRAP_CONTENT, Gravity.CENTER))

@@ -2,8 +2,10 @@ package ir.oxima.githubtrending
 
 import android.app.Application
 import android.content.Context
+import android.content.ContextWrapper
 import android.os.Handler
 import com.androidnetworking.AndroidNetworking
+import ir.oxima.githubtrending.other.utilities.Prefs
 
 class ApplicationLoader : Application() {
 
@@ -21,6 +23,11 @@ class ApplicationLoader : Application() {
         appContext = getApplicationContext()
         applicationHandler = Handler(applicationContext.mainLooper)
         AndroidNetworking.initialize(appContext)
-
+        Prefs.Builder()
+                .setContext(this)
+                .setMode(ContextWrapper.MODE_PRIVATE)
+                .setPrefsName(packageName)
+                .setUseDefaultSharedPreference(true)
+                .build()
     }
 }

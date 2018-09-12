@@ -10,6 +10,8 @@ import android.view.ViewGroup
 import ir.oxima.githubtrendin.contracts.CategoryContract
 import ir.oxima.githubtrending.Presenters.CategoryPresenter
 import ir.oxima.githubtrending.R
+import ir.oxima.githubtrending.models.interfaces.IReloadTrends
+import ir.oxima.githubtrending.models.models.Category
 import ir.oxima.githubtrending.other.components.StatefulLayout
 import ir.oxima.githubtrending.views.adapters.CategoryAdapter
 
@@ -17,11 +19,13 @@ import ir.oxima.githubtrending.views.adapters.CategoryAdapter
 class CategoryFragment : BaseFragment(),CategoryContract.View{
 
 
+
     private var mRootView: View? = null
     private var state_view : StatefulLayout? = null
     private var rcl_categories : RecyclerView? = null
     private var presenter : CategoryPresenter? = null
     private var categoryAdapter: CategoryAdapter? = null
+    private var iReloadTrends: IReloadTrends? = null
 
     override fun onPause() {
         super.onPause()
@@ -41,11 +45,16 @@ class CategoryFragment : BaseFragment(),CategoryContract.View{
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         if (mRootView == null) {
             mRootView = inflater.inflate(R.layout.fragment_category, null)
+
         }
         initViews()
         presenter = CategoryPresenter(this)
         presenter!!.fetchCategories()
         return mRootView
+    }
+
+    fun setListener(listener : IReloadTrends){
+        iReloadTrends = listener
     }
 
     override fun showCategories() {
@@ -77,6 +86,12 @@ class CategoryFragment : BaseFragment(),CategoryContract.View{
 
     override fun notifyItemRangeChanged(positionStart: Int, itemCount: Int) {
         categoryAdapter!!.notifyItemRangeChanged(positionStart,itemCount)
+    }
+
+    override fun onChangeCategory(category: Category) {
+        if (iReloadTrends != null){
+            iReloadTrends!!.onChangeCategory(category)
+        }
     }
 
     override fun onConnectivityChange(isConnectedOrConnecting: Boolean) {

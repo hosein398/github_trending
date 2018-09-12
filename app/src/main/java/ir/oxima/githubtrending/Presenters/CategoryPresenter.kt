@@ -4,22 +4,13 @@ package ir.oxima.githubtrending.Presenters
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.CompoundButton
-import com.androidnetworking.AndroidNetworking
-import com.androidnetworking.common.Priority
-import com.androidnetworking.error.ANError
-import com.androidnetworking.interfaces.ParsedRequestListener
-import com.bumptech.glide.Glide
 import ir.oxima.githubtrendin.contracts.CategoryContract
-import ir.oxima.githubtrendin.contracts.HomeContract
 import ir.oxima.githubtrending.R
-import ir.oxima.githubtrending.models.Category
-import ir.oxima.githubtrending.models.Root
-import ir.oxima.githubtrending.models.Trend
-import ir.oxima.githubtrending.other.constant.C
+import ir.oxima.githubtrending.models.models.Category
+import ir.oxima.githubtrending.models.models.Root
+import ir.oxima.githubtrending.other.utilities.Prefs
 import ir.oxima.githubtrending.other.utilities.ValidationTools
 import ir.oxima.githubtrending.views.adapters.CategoryAdapter
-import ir.oxima.githubtrending.views.adapters.TrendAdapter
 import kotlin.collections.ArrayList
 
 class CategoryPresenter : CategoryContract.Presenter {
@@ -34,7 +25,7 @@ class CategoryPresenter : CategoryContract.Presenter {
 
     override fun fetchCategories() {
 
-        items.add(Category("Java",true))
+        items.add(Category("Java"))
         items.add(Category("Kotlin"))
         items.add(Category("C#"))
         items.add(Category("Swift"))
@@ -54,6 +45,16 @@ class CategoryPresenter : CategoryContract.Presenter {
         items.add(Category("Matlab"))
         items.add(Category("PLSQL"))
         items.add(Category("TeX"))
+
+        var cat = Prefs.getObject("category", Category::class.java)
+        if (cat == null){
+            cat = Category("Java")
+        }
+        for (category in items){
+            if (category.getTitle().equals(cat!!.getTitle())){
+                category.setChecked(true)
+            }
+        }
 
         mView!!.showCategories()
 
@@ -93,6 +94,8 @@ class CategoryPresenter : CategoryContract.Presenter {
             }
             category.setChecked(isChecked)
             mView!!.notifyDataSetChange()
+            Prefs.putObject("category",category)
+            mView!!.onChangeCategory(category)
         }
     }
 

@@ -2,7 +2,6 @@ package ir.oxima.githubtrending.views.fragments
 
 import android.content.Context
 import android.os.Bundle
-import android.support.v4.app.FragmentManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -12,15 +11,14 @@ import ir.oxima.githubtrendin.contracts.HomeContract
 import ir.oxima.githubtrending.NavigationManager
 import ir.oxima.githubtrending.Presenters.HomePresenter
 import ir.oxima.githubtrending.R
-import ir.oxima.githubtrending.models.Trend
+import ir.oxima.githubtrending.models.models.Trend
 import ir.oxima.githubtrending.other.components.StatefulLayout
 import ir.oxima.githubtrending.other.components.infinitescrollprovider.InfiniteScrollProvider
 import ir.oxima.githubtrending.other.components.infinitescrollprovider.OnLoadMoreListener
+import ir.oxima.githubtrending.other.utilities.FileLog
 import ir.oxima.githubtrending.views.adapters.TrendAdapter
 
 class HomeFragment : BaseFragment(), HomeContract.View {
-
-
 
     private var mRootView: View? = null
     private var state_view : StatefulLayout? = null
@@ -47,18 +45,20 @@ class HomeFragment : BaseFragment(), HomeContract.View {
         if (mRootView == null) {
             mRootView = inflater.inflate(R.layout.fragment_home, null)
         }
+
         initViews()
         presenter = HomePresenter(this)
-        presenter!!.fetchTrends()
+        if (presenter == null || presenter!!.getTrendsCount() == 0) {
+            presenter!!.fetchTrends()
+        }
         return mRootView
     }
 
     override fun initViews() {
         state_view = mRootView!!.findViewById(R.id.state_view)
         rcl_trends = mRootView!!.findViewById(R.id.rcl_trends)
-
-
     }
+
 
     override fun getAppContext(): Context? {
         return context
@@ -121,13 +121,14 @@ class HomeFragment : BaseFragment(), HomeContract.View {
     override fun onConnectivityChange(isConnectedOrConnecting: Boolean) {
         super.onConnectivityChange(isConnectedOrConnecting)
         if (isConnectedOrConnecting){
-            if (trendAdapter != null){
+            if (presenter != null && presenter!!.getTrendsCount() != 0){
                 showContent()
-                retainInstance
+                return
             }
             presenter!!.fetchTrends()
         }else{
             state_view!!.showOffline()
         }
+
     }
 }

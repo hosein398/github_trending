@@ -2,7 +2,7 @@ package ir.oxima.githubtrendin.contracts
 
 import android.content.Context
 import android.view.ViewGroup
-import ir.oxima.githubtrending.models.Trend
+import ir.oxima.githubtrending.models.models.Trend
 import ir.oxima.githubtrending.views.adapters.TrendAdapter
 
 interface HomeContract {

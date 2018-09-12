@@ -1,4 +1,4 @@
-package ir.oxima.githubtrending.models
+package ir.oxima.githubtrending.models.models
 
 class License {
 

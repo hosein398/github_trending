@@ -1,7 +1,6 @@
-package ir.oxima.githubtrending.models
+package ir.oxima.githubtrending.models.models
 
-import android.content.ClipData.Item
-
+import com.google.gson.GsonBuilder
 
 
 class Root {
@@ -9,8 +8,10 @@ class Root {
     private var total_count: Int = 0
     private var items: ArrayList<Trend>? = null
     private var incomplete_results: Boolean = false
+
     private var errors: ArrayList<Error>? = null
     private var message: String? = null
+    private var documentation_url: String? = null
 
     fun getTotalCount(): Int {
         return this.total_count
@@ -44,11 +45,23 @@ class Root {
         this.message = message
     }
 
+    fun getDocumentationUrl(): String? {
+        return this.documentation_url
+    }
+
+    fun setDocumentationUrl(documentation_url: String) {
+        this.documentation_url = documentation_url
+    }
+
     fun getErrors(): ArrayList<Error>? {
         return this.errors
     }
 
     fun setErrors(errors: ArrayList<Error>) {
         this.errors = errors
+    }
+
+    override fun toString(): String {
+        return GsonBuilder().create().toJson(this)
     }
 }

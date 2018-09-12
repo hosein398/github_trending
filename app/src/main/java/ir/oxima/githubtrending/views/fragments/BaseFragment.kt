@@ -1,6 +1,7 @@
 package ir.oxima.githubtrending.views.fragments
 
 import android.app.Activity
+import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import ir.oxima.githubtrending.NavigationManager
@@ -20,11 +21,15 @@ open class BaseFragment : Fragment() ,
 
     override fun onAttach(activity: Activity?) {
         super.onAttach(activity)
-        (activity as BaseActivity).setOnConnectivityListener(this)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        getBaseActivity().setOnConnectivityListener(this)
     }
 
     fun getBaseActivity(): BaseActivity {
-        return getActivity() as BaseActivity
+        return activity as BaseActivity
     }
 
     override fun onStop() {

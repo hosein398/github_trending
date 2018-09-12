@@ -9,11 +9,14 @@ import android.view.View
 import ir.oxima.githubtrendin.contracts.MainContract
 import ir.oxima.githubtrending.NavigationManager
 import ir.oxima.githubtrending.R
+import ir.oxima.githubtrending.models.interfaces.IReloadTrends
+import ir.oxima.githubtrending.models.models.Category
 import ir.oxima.githubtrending.other.components.SimpleToolbar
 import ir.oxima.githubtrending.other.components.bottomnavigationbar.BottomBarItem
 import ir.oxima.githubtrending.other.components.bottomnavigationbar.BottomNavigationBar
 import ir.oxima.githubtrending.other.utilities.FileLog
 import ir.oxima.githubtrending.other.utilities.LocaleController
+import ir.oxima.githubtrending.other.utilities.Prefs
 import ir.oxima.githubtrending.views.fragments.CategoryFragment
 import ir.oxima.githubtrending.views.fragments.HomeFragment
 
@@ -22,7 +25,8 @@ class MainActivity : BaseActivity(),
         SimpleToolbar.OnClickIconListener,
         SimpleToolbar.SearchViewListener,
         BottomNavigationBar.OnSelectListener,
-        BottomNavigationBar.OnReselectListener{
+        BottomNavigationBar.OnReselectListener,
+        IReloadTrends{
 
 
 
@@ -54,25 +58,28 @@ class MainActivity : BaseActivity(),
 
         homeFragment = HomeFragment.instance()
         categoryFragment = CategoryFragment.instance()
+        categoryFragment!!.setListener(this)
     }
 
     override fun setupToolbar() {
         simple_toolbar!!.setIconBack(null)
         simple_toolbar!!.setTitle(LocaleController.getText(this,R.string.app_name))
-        simple_toolbar!!.setSubTitle("For Java")
         simple_toolbar!!.setGravityTitle(Gravity.CENTER)
         simple_toolbar!!.setOnClickIconListener(this)
         simple_toolbar!!.setSearchViewListener(this)
+        var category = Prefs.getObject("category",Category::class.java)
+        simple_toolbar!!.setSubTitle("For ${if (category == null) "Java" else category!!.getTitle()}")
+
     }
 
     override fun setupBottomNavigation() {
         val bottomNavigationHome = BottomBarItem(R.drawable.ic_tab_home, R.string.home)
         val bottomNavigationList = BottomBarItem(R.drawable.ic_tab_category, R.string.category)
-        val bottomNavigationSearchView = BottomBarItem(R.drawable.ic_tab_search, R.string.search)
+        //val bottomNavigationSearchView = BottomBarItem(R.drawable.ic_tab_search, R.string.search)
 
         bottom_navigation!!.addTab(bottomNavigationHome)
         bottom_navigation!!.addTab(bottomNavigationList)
-        bottom_navigation!!.addTab(bottomNavigationSearchView)
+        //bottom_navigation!!.addTab(bottomNavigationSearchView)
 
         bottom_navigation!!.setOnSelectListener(this)
         bottom_navigation!!.setOnReselectListener(this)
@@ -144,4 +151,10 @@ class MainActivity : BaseActivity(),
         super.onBackPressed()
     }
 
+    override fun onChangeCategory(category: Category?) {
+        simple_toolbar!!.setSubTitle("For ${if (category == null) "Java" else category!!.getTitle()}")
+        bottom_navigation!!.selectTab(0, true)
+        homeFragment = HomeFragment.instance()
+        openFragment(homeFragment!!)
+    }
 }

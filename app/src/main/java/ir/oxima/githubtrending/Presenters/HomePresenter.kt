@@ -11,9 +11,12 @@ import com.androidnetworking.interfaces.ParsedRequestListener
 import com.bumptech.glide.Glide
 import ir.oxima.githubtrendin.contracts.HomeContract
 import ir.oxima.githubtrending.R
-import ir.oxima.githubtrending.models.Root
-import ir.oxima.githubtrending.models.Trend
+import ir.oxima.githubtrending.models.models.Category
+import ir.oxima.githubtrending.models.models.Root
+import ir.oxima.githubtrending.models.models.Trend
 import ir.oxima.githubtrending.other.constant.C
+import ir.oxima.githubtrending.other.utilities.FileLog
+import ir.oxima.githubtrending.other.utilities.Prefs
 import ir.oxima.githubtrending.other.utilities.ValidationTools
 import ir.oxima.githubtrending.views.adapters.TrendAdapter
 import kotlin.collections.ArrayList
@@ -21,9 +24,10 @@ import kotlin.collections.ArrayList
 class HomePresenter : HomeContract.Presenter {
 
 
+
     private var mView: HomeContract.View
     private var page : Int = 1
-    private var language : String = "Java"
+    private var language : String? = null
     private var items = ArrayList<Trend>()
 
     constructor(view: HomeContract.View){
@@ -31,6 +35,8 @@ class HomePresenter : HomeContract.Presenter {
     }
 
     override fun fetchTrends() {
+        var category = Prefs.getObject("category", Category::class.java)
+        language = if (category == null) "Java" else category!!.getTitle()
         if (page == 1){
             mView.showLoading()
         }else{
@@ -45,6 +51,7 @@ class HomePresenter : HomeContract.Presenter {
                     override fun onResponse(response: Root) {
                         if (response == null){
                             if (page != 1){
+                                mView.showContent()
                                 return
                             }
                             mView.showAlertDialog("",true)
@@ -53,6 +60,7 @@ class HomePresenter : HomeContract.Presenter {
 
                         if (!ValidationTools.isEmptyOrNull(response.getErrors())){
                             if (page != 1){
+                                mView.showContent()
                                 return
                             }
                             mView.showAlertDialog(response.getMessage(),true)
@@ -61,6 +69,7 @@ class HomePresenter : HomeContract.Presenter {
 
                         if (ValidationTools.isEmptyOrNull(response.getItems())){
                             if (page != 1){
+                                mView.showContent()
                                 return
                             }
                             mView.showEmpty()
@@ -79,6 +88,7 @@ class HomePresenter : HomeContract.Presenter {
 
                     override fun onError(anError: ANError) {
                         if (page != 1){
+                            mView.showContent()
                             return
                         }
                         mView.showAlertDialog(anError.errorDetail,true)
@@ -86,6 +96,7 @@ class HomePresenter : HomeContract.Presenter {
                     }
                 })
     }
+
 
     override fun getTrendsCount(): Int {
         return if (ValidationTools.isEmptyOrNull(getTrendes())) 0 else getTrendes().size

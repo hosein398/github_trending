@@ -2,10 +2,8 @@ package ir.oxima.githubtrendin.contracts
 
 import android.content.Context
 import android.view.ViewGroup
-import ir.oxima.githubtrending.models.Category
-import ir.oxima.githubtrending.models.Trend
+import ir.oxima.githubtrending.models.models.Category
 import ir.oxima.githubtrending.views.adapters.CategoryAdapter
-import ir.oxima.githubtrending.views.adapters.TrendAdapter
 
 interface CategoryContract {
 
@@ -17,6 +15,7 @@ interface CategoryContract {
         fun notifyItemRemoved(layoutPosition: Int)
         fun notifyItemRangeChanged(positionStart: Int, itemCount: Int)
         fun showCategories()
+        fun onChangeCategory(category: Category)
     }
 
     interface Presenter{
