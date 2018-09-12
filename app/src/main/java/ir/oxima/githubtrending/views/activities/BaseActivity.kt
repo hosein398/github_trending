@@ -12,6 +12,7 @@ import android.support.customtabs.CustomTabsIntent
 import android.support.customtabs.CustomTabsServiceConnection
 import android.support.customtabs.CustomTabsSession
 import android.support.design.widget.Snackbar
+import android.support.v4.app.FragmentManager
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.view.Gravity
@@ -28,9 +29,8 @@ import ir.oxima.githubtrending.other.constant.C
 import ir.oxima.githubtrending.other.utilities.*
 import ir.oxima.githubtrending.views.DialogBuilder
 
-open class BaseActivity : AppCompatActivity() ,
-                     ConnectivityBroadcastReceiver.OnConnectivityListener,
-                     NavigationManager.NavigationListener{
+open class BaseActivity : AppCompatActivity(),
+        ConnectivityBroadcastReceiver.OnConnectivityListener{
 
     private val CUSTOM_TAB_PACKAGE_NAME = "com.android.chrome"
     private var mClient: CustomTabsClient? = null
@@ -49,15 +49,14 @@ open class BaseActivity : AppCompatActivity() ,
     }
 
 
-     override fun onStart() {
+    override fun onStart() {
         super.onStart()
         connectionBroadcast = ConnectivityBroadcastReceiver()
         connectionBroadcast!!.setOnConnectivityListener(this)
         registerReceiver(connectionBroadcast, IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
-
     }
 
-     override fun onStop() {
+    override fun onStop() {
         super.onStop()
         if (connectionBroadcast != null) {
             unregisterReceiver(connectionBroadcast)
@@ -65,7 +64,7 @@ open class BaseActivity : AppCompatActivity() ,
         needHideProgressDialog()
     }
 
-     override fun onResume() {
+    override fun onResume() {
         super.onResume()
         if (connectionBroadcast == null) {
             connectionBroadcast = ConnectivityBroadcastReceiver()
@@ -82,16 +81,13 @@ open class BaseActivity : AppCompatActivity() ,
         }
     }
 
-     override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN)
         NavigationManager.getInstance().init(getSupportFragmentManager())
-        NavigationManager.getInstance().setNavigationListener(this)
+
     }
 
-    override fun onBackPressed() {
-        NavigationManager.getInstance().navigateBack(this)
-    }
 
     fun setupCustomTabs(url: String) {
         mCustomTabsServiceConnection = object : CustomTabsServiceConnection() {
@@ -190,9 +186,5 @@ open class BaseActivity : AppCompatActivity() ,
 
     fun needShowSnackbar(view: View, message: String) {
         Snackbar.make(view, AndroidUtilities.typeface(C.defaultNormalFont, message), Snackbar.LENGTH_LONG).show()
-    }
-
-    override fun onBackstackChanged() {
-
     }
 }

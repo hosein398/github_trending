@@ -3,6 +3,7 @@ package ir.oxima.githubtrending.views.activities
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentManager
 import android.view.View
 import ir.oxima.githubtrendin.contracts.MainContract
 import ir.oxima.githubtrending.NavigationManager
@@ -12,11 +13,13 @@ import ir.oxima.githubtrending.other.components.bottomnavigationbar.BottomBarIte
 import ir.oxima.githubtrending.other.components.bottomnavigationbar.BottomNavigationBar
 import ir.oxima.githubtrending.other.utilities.FileLog
 import ir.oxima.githubtrending.other.utilities.LocaleController
+import ir.oxima.githubtrending.views.fragments.CategoryFragment
 import ir.oxima.githubtrending.views.fragments.HomeFragment
 
 class MainActivity : BaseActivity(),
         MainContract.View,
         SimpleToolbar.OnClickIconListener,
+        SimpleToolbar.SearchViewListener,
         BottomNavigationBar.OnSelectListener,
         BottomNavigationBar.OnReselectListener{
 
@@ -25,6 +28,7 @@ class MainActivity : BaseActivity(),
     private var simple_toolbar : SimpleToolbar? = null
     private var bottom_navigation : BottomNavigationBar? = null
     private var homeFragment : HomeFragment? = null
+    private var categoryFragment : CategoryFragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,12 +52,14 @@ class MainActivity : BaseActivity(),
         simple_toolbar = findViewById(R.id.simple_toolbar)
 
         homeFragment = HomeFragment.instance()
+        categoryFragment = CategoryFragment.instance()
     }
 
     override fun setupToolbar() {
         simple_toolbar!!.setIconBack(null)
         simple_toolbar!!.setTitle(LocaleController.getText(this,R.string.app_name))
         simple_toolbar!!.setOnClickIconListener(this)
+        simple_toolbar!!.setSearchViewListener(this)
     }
 
     override fun setupBottomNavigation() {
@@ -72,17 +78,36 @@ class MainActivity : BaseActivity(),
 
     override fun onSelect(position: Int) {
         when (position) {
-            0 -> openFragment(homeFragment!!)
-            1 -> FileLog.i("on click me !")
-            2 -> simple_toolbar!!.openSearchView()
+            0 -> {
+                simple_toolbar!!.closeSearchView()
+                openFragment(homeFragment!!)
+            }
+
+            1 -> {
+                simple_toolbar!!.closeSearchView()
+                openFragment(categoryFragment!!)
+            }
+            2 -> {
+                simple_toolbar!!.openSearchView()
+                openFragment(homeFragment!!)
+            }
         }
     }
 
     override fun onReselect(position: Int) {
         when (position) {
-            0 -> openFragment(homeFragment!!)
-            1 -> FileLog.i("on click me !")
-            2 -> simple_toolbar!!.openSearchView()
+            0 -> {
+                simple_toolbar!!.closeSearchView()
+                openFragment(homeFragment!!)
+            }
+            1 -> {
+                simple_toolbar!!.closeSearchView()
+                openFragment(categoryFragment!!)
+            }
+            2 -> {
+                simple_toolbar!!.openSearchView()
+                openFragment(homeFragment!!)
+            }
         }
     }
 
@@ -91,7 +116,29 @@ class MainActivity : BaseActivity(),
         }
     }
 
-    override fun onBackstackChanged() {
-        super.onBackstackChanged()
+    override fun onSearchViewShown() {
     }
+
+    override fun onSearchViewClosed() {
+    }
+
+    override fun onSearchViewBackPressed() {
+        bottom_navigation!!.selectTab(0, true)
+    }
+
+    override fun onBackPressed() {
+        if (simple_toolbar!!.isOpenSearchView){
+            simple_toolbar!!.closeSearchView()
+            bottom_navigation!!.selectTab(0, true)
+            return
+        }
+        val f = supportFragmentManager.findFragmentById(R.id.main_container)
+        if (f is HomeFragment) {
+            finish()
+        }else{
+            bottom_navigation!!.selectTab(0, true)
+        }
+        super.onBackPressed()
+    }
+
 }

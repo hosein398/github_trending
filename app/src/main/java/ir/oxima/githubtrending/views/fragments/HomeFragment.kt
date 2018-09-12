@@ -2,6 +2,7 @@ package ir.oxima.githubtrending.views.fragments
 
 import android.content.Context
 import android.os.Bundle
+import android.support.v4.app.FragmentManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -16,6 +17,7 @@ import ir.oxima.githubtrending.other.components.infinitescrollprovider.OnLoadMor
 import ir.oxima.githubtrending.views.adapters.TrendAdapter
 
 class HomeFragment : BaseFragment(), HomeContract.View {
+
 
     private var mRootView: View? = null
     private var state_view : StatefulLayout? = null
@@ -113,7 +115,11 @@ class HomeFragment : BaseFragment(), HomeContract.View {
     override fun onConnectivityChange(isConnectedOrConnecting: Boolean) {
         super.onConnectivityChange(isConnectedOrConnecting)
         if (isConnectedOrConnecting){
-            //state_view!!.showContent()
+            if (trendAdapter != null){
+                showContent()
+                retainInstance
+            }
+            presenter!!.fetchTrends()
         }else{
             state_view!!.showOffline()
         }

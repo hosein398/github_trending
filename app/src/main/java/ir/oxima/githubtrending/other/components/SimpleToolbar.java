@@ -54,6 +54,7 @@ public class SimpleToolbar extends Toolbar implements View.OnClickListener {
     public interface SearchViewListener {
         void onSearchViewShown();
         void onSearchViewClosed();
+        void onSearchViewBackPressed();
     }
 
     public SimpleToolbar(Context context) {
@@ -141,6 +142,9 @@ public class SimpleToolbar extends Toolbar implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.img_back_search:
+                if (searchViewListener != null){
+                    searchViewListener.onSearchViewBackPressed();
+                }
                 closeSearchView();
                 return;
 

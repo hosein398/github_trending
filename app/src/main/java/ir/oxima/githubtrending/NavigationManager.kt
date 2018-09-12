@@ -6,9 +6,6 @@ import android.support.v4.app.FragmentManager
 
 class NavigationManager {
 
-    interface NavigationListener {
-        fun onBackstackChanged()
-    }
 
     private constructor(){
 
@@ -25,15 +22,9 @@ class NavigationManager {
 
 
     private var mFragmentManager: FragmentManager? = null
-    private var mNavigationListener: NavigationListener? = null
 
     fun init(fragmentManager: FragmentManager) {
         mFragmentManager = fragmentManager
-        mFragmentManager!!.addOnBackStackChangedListener {
-            if (mNavigationListener != null) {
-                mNavigationListener!!.onBackstackChanged()
-            }
-        }
     }
 
     fun open(fragment: Fragment) {
@@ -64,20 +55,4 @@ class NavigationManager {
         }
     }
 
-    fun navigateBack(baseActivity: Activity) {
-
-        if (mFragmentManager!!.backStackEntryCount == 1) {
-            baseActivity.finish()
-        } else {
-            mFragmentManager!!.popBackStackImmediate()
-        }
-    }
-
-    fun getNavigationListener(): NavigationListener? {
-        return mNavigationListener
-    }
-
-    fun setNavigationListener(navigationListener: NavigationListener) {
-        mNavigationListener = navigationListener
-    }
 }
