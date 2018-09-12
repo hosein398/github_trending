@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:transitionName="toolbar"
+    android:background="@color/colorPrimary"
     android:layoutDirection="ltr">
 
         <FrameLayout
@@ -15,18 +16,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/toolbar_height"
                 android:gravity="center_vertical"
-                android:background="@color/colorPrimary"
+                android:layout_gravity="top"
                 android:orientation="horizontal">
 
                 <ImageView
                     android:id="@+id/icon_back"
-                    android:layout_width="@dimen/_42sdp"
+                    android:layout_width="@dimen/toolbar_height"
                     android:layout_height="match_parent"
                     app:srcCompat="@drawable/ic_arrow_back_black_24dp"
-                    android:padding="@dimen/_11sdp"
+                    android:padding="@dimen/_13sdp"
                     android:visibility="visible"
                     android:background="?attr/selectableItemBackground"
-                    android:tint="@color/colorAccent"/>
+                    android:tint="@color/md_white"/>
 
                 <FrameLayout
                     android:layout_width="0dp"
@@ -46,11 +47,11 @@
                             android:visibility="visible"/>
 
                         <LinearLayout
+                            android:id="@+id/view_title"
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:layout_height="match_parent"
                             android:orientation="vertical"
-                            android:paddingLeft="@dimen/_10sdp"
                             android:gravity="center_vertical">
 
                             <ir.oxima.githubtrending.other.components.TextViewCell
@@ -59,7 +60,7 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
                                 android:text="@string/app_name"
-                                android:textColor="@color/colorAccent"
+                                android:textColor="@color/md_white"
                                 android:textSize="@dimen/_14sdp"
                                 android:maxLines="1"
                                 android:singleLine="true"
@@ -79,7 +80,7 @@
                                 android:ellipsize="end"
                                 android:text="@string/app_name"
                                 android:transitionName="subtitle"
-                                android:textColor="@color/colorAccent"
+                                android:textColor="@color/md_white"
                                 android:textSize="@dimen/_10sdp"/>
 
                         </LinearLayout>
@@ -100,27 +101,27 @@
 
                 <ImageView
                     android:id="@+id/icon3"
-                    android:layout_width="@dimen/_42sdp"
+                    android:layout_width="@dimen/toolbar_height"
                     android:layout_height="match_parent"
-                    android:padding="@dimen/_11sdp"
+                    android:padding="@dimen/_13sdp"
                     android:background="?attr/selectableItemBackground"
-                    android:tint="@color/colorAccent"/>
+                    android:tint="@color/md_white"/>
 
                 <ImageView
                     android:id="@+id/icon2"
-                    android:layout_width="@dimen/_42sdp"
+                    android:layout_width="@dimen/toolbar_height"
                     android:layout_height="match_parent"
-                    android:padding="@dimen/_11sdp"
+                    android:padding="@dimen/_13sdp"
                     android:background="?attr/selectableItemBackground"
-                    android:tint="@color/colorAccent"/>
+                    android:tint="@color/md_white"/>
 
                 <ImageView
                     android:id="@+id/icon1"
-                    android:layout_width="@dimen/_42sdp"
+                    android:layout_width="@dimen/toolbar_height"
                     android:layout_height="match_parent"
-                    android:padding="@dimen/_11sdp"
+                    android:padding="@dimen/_13sdp"
                     android:background="?attr/selectableItemBackground"
-                    android:tint="@color/colorAccent"/>
+                    android:tint="@color/md_white"/>
 
             </LinearLayout>
 
@@ -130,7 +131,8 @@
                 android:layout_height="match_parent"
                 android:background="@color/md_white"
                 android:orientation="horizontal"
-                android:gravity="center_vertical">
+                android:gravity="center_vertical"
+                android:visibility="gone">
 
                 <ImageView
                     android:id="@+id/img_back_search"
@@ -138,7 +140,7 @@
                     android:layout_height="match_parent"
                     android:background="?attr/selectableItemBackground"
                     app:srcCompat="@drawable/ic_arrow_back_black_24dp"
-                    android:padding="@dimen/_11sdp"
+                    android:padding="@dimen/_13sdp"
                     android:tint="@color/grey_normal"/>
 
                 <ir.oxima.githubtrending.other.components.EditTextCell
@@ -157,7 +159,7 @@
                     android:layout_height="match_parent"
                     android:background="?attr/selectableItemBackground"
                     app:srcCompat="@drawable/ic_close_black_24dp"
-                    android:padding="@dimen/_11sdp"
+                    android:padding="@dimen/_13sdp"
                     android:tint="@color/grey_normal"/>
 
             </LinearLayout>

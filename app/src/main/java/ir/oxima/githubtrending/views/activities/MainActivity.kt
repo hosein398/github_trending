@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
+import android.view.Gravity
 import android.view.View
 import ir.oxima.githubtrendin.contracts.MainContract
 import ir.oxima.githubtrending.NavigationManager
@@ -58,6 +59,8 @@ class MainActivity : BaseActivity(),
     override fun setupToolbar() {
         simple_toolbar!!.setIconBack(null)
         simple_toolbar!!.setTitle(LocaleController.getText(this,R.string.app_name))
+        simple_toolbar!!.setSubTitle("For Java")
+        simple_toolbar!!.setGravityTitle(Gravity.CENTER)
         simple_toolbar!!.setOnClickIconListener(this)
         simple_toolbar!!.setSearchViewListener(this)
     }

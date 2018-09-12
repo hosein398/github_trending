@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Dimens Default -->
-    <dimen name="toolbar_height">@dimen/_42sdp</dimen>
+    <dimen name="toolbar_height">@dimen/_48sdp</dimen>
     <dimen name="bottom_navigation_height">@dimen/_42sdp</dimen>
     <dimen name="button_height">@dimen/_44sdp</dimen>
     <dimen name="shadow_extra_height">@dimen/_6sdp</dimen>

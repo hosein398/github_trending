@@ -23,6 +23,7 @@ class HomePresenter : HomeContract.Presenter {
 
     private var mView: HomeContract.View
     private var page : Int = 1
+    private var language : String = "Java"
     private var items = ArrayList<Trend>()
 
     constructor(view: HomeContract.View){
@@ -36,8 +37,8 @@ class HomePresenter : HomeContract.Presenter {
             mView.showLoadingMore()
         }
 
-        AndroidNetworking.get(String.format(C.API_BASE_URL,"q=language:kotlin&sort=stars&order=desc&page=$page"))
-                .setTag("")
+        AndroidNetworking.get(String.format(C.API_BASE_URL,"q=language:$language&sort=stars&order=desc&page=$page"))
+                .setTag(C.TREND_REPOSITORY_TAG)
                 .setPriority(Priority.MEDIUM)
                 .build()
                 .getAsObject(Root::class.java, object : ParsedRequestListener<Root> {

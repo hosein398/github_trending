@@ -6,6 +6,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +33,7 @@ public class SimpleToolbar extends Toolbar implements View.OnClickListener {
     private ImageView icon2;
     private ImageView icon1;
     private ViewGroup search_view;
+    private LinearLayout view_title;
     private EditText edt_search;
     private ImageView img_back_search;
     private ImageView img_clear;
@@ -90,6 +92,7 @@ public class SimpleToolbar extends Toolbar implements View.OnClickListener {
         img_back_search = findViewById(R.id.img_back_search);
         img_clear = findViewById(R.id.img_clear);
         icon_back = findViewById(R.id.icon_back);
+        view_title = findViewById(R.id.view_title);
         icon1 = findViewById(R.id.icon1);
         icon2 = findViewById(R.id.icon2);
         icon3 = findViewById(R.id.icon3);
@@ -135,6 +138,7 @@ public class SimpleToolbar extends Toolbar implements View.OnClickListener {
         setIcon2(null);
         setIcon3(null);
         setAvatar(null);
+        setGravityTitle(Gravity.CENTER_VERTICAL);
         search_view.setVisibility(GONE);
     }
 
@@ -157,6 +161,10 @@ public class SimpleToolbar extends Toolbar implements View.OnClickListener {
             mOnClickIconListener.onClickIcon(view);
             return;
         }
+    }
+
+    public void setGravityTitle(int gravity){
+        view_title.setGravity(gravity);
     }
 
     public void setOnClickIconListener(OnClickIconListener onClickIconListener) {
